@@ -1,0 +1,375 @@
+openapi: 3.0.0
+info:
+  title: PJE MCP Server API
+  description: |
+    API REST para integração com o sistema PJE (Processo Judicial Eletrônico) brasileiro.
+
+    Suporta integração com:
+    - ChatGPT (Custom GPT Actions)
+    - Google Gemini (Function Calling)
+    - Perplexity
+    - Qualquer ferramenta que suporte HTTP REST
+
+    **Como usar:**
+    1. Inicie o servidor: `npm run start:web`
+    2. Configure sua ferramenta apontando para: `http://localhost:3000`
+    3. Use os endpoints abaixo
+
+  version: 1.0.0
+  contact:
+    name: PJE MCP Server
+    url: https://github.com/seu-usuario/pje-mcp-server
+
+servers:
+  - url: http://localhost:3000
+    description: Servidor local
+  - url: https://sua-api.exemplo.com
+    description: Servidor em produção
+
+paths:
+  /api/status:
+    get:
+      summary: Status da configuração
+      description: Retorna o status atual da configuração do servidor PJE
+      operationId: getStatus
+      responses:
+        '200':
+          description: Status recuperado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  configured:
+                    type: boolean
+                    description: Se o servidor está configurado
+                  baseUrl:
+                    type: string
+                    description: URL base do PJE
+                  appName:
+                    type: string
+                    description: Nome da aplicação PJE
+                  hasCertificate:
+                    type: boolean
+                    description: Se há certificado configurado
+
+  /api/configure:
+    post:
+      summary: Configurar servidor PJE
+      description: Configura a conexão com o tribunal PJE
+      operationId: configure
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - baseUrl
+                - appName
+              properties:
+                baseUrl:
+                  type: string
+                  description: URL base do tribunal PJE
+                  example: https://pje.tjce.jus.br
+                appName:
+                  type: string
+                  description: Nome da aplicação PJE
+                  example: pje-tjce-1g
+      responses:
+        '200':
+          description: Configuração realizada com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+
+  /api/processos:
+    get:
+      summary: Listar processos
+      description: Lista processos judiciais com filtros opcionais
+      operationId: listarProcessos
+      parameters:
+        - name: cpf
+          in: query
+          description: CPF do interessado
+          schema:
+            type: string
+            example: "12345678900"
+        - name: cnpj
+          in: query
+          description: CNPJ do interessado
+          schema:
+            type: string
+        - name: numeroProcesso
+          in: query
+          description: Número do processo
+          schema:
+            type: string
+        - name: dataInicio
+          in: query
+          description: Data inicial (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+            example: "2024-01-01"
+        - name: dataFim
+          in: query
+          description: Data final (YYYY-MM-DD)
+          schema:
+            type: string
+            format: date
+            example: "2024-12-31"
+        - name: orgaoJulgador
+          in: query
+          description: ID do órgão julgador
+          schema:
+            type: string
+        - name: classe
+          in: query
+          description: Código da classe processual
+          schema:
+            type: string
+        - name: assunto
+          in: query
+          description: Código do assunto
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de processos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  processos:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        numero:
+                          type: string
+                          description: Número do processo
+                        classe:
+                          type: string
+                          description: Classe processual
+                        assunto:
+                          type: string
+                          description: Assunto do processo
+                        orgaoJulgador:
+                          type: string
+                          description: Órgão julgador
+                        dataAutuacao:
+                          type: string
+                          format: date
+                          description: Data de autuação
+
+  /api/processo/{numero}:
+    get:
+      summary: Buscar processo específico
+      description: Busca um processo pelo número
+      operationId: buscarProcesso
+      parameters:
+        - name: numero
+          in: path
+          required: true
+          description: Número do processo (com ou sem formatação)
+          schema:
+            type: string
+            example: "1234567-89.2024.8.06.0001"
+      responses:
+        '200':
+          description: Dados do processo
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  numero:
+                    type: string
+                  classe:
+                    type: string
+                  assunto:
+                    type: string
+                  orgaoJulgador:
+                    type: string
+                  dataAutuacao:
+                    type: string
+                    format: date
+                  partes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        nome:
+                          type: string
+                        polo:
+                          type: string
+                        tipo:
+                          type: string
+                  movimentacoes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        data:
+                          type: string
+                          format: date-time
+                        descricao:
+                          type: string
+        '404':
+          description: Processo não encontrado
+
+  /api/orgaos-julgadores:
+    get:
+      summary: Listar órgãos julgadores
+      description: Lista todos os órgãos julgadores disponíveis no tribunal
+      operationId: listarOrgaosJulgadores
+      responses:
+        '200':
+          description: Lista de órgãos julgadores
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  orgaos:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        nome:
+                          type: string
+                        tipo:
+                          type: string
+
+  /api/classes:
+    get:
+      summary: Listar classes processuais
+      description: Lista todas as classes processuais disponíveis
+      operationId: listarClasses
+      responses:
+        '200':
+          description: Lista de classes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  classes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        codigo:
+                          type: string
+                        nome:
+                          type: string
+                        descricao:
+                          type: string
+
+  /api/assuntos:
+    get:
+      summary: Listar assuntos processuais
+      description: Lista todos os assuntos processuais disponíveis
+      operationId: listarAssuntos
+      responses:
+        '200':
+          description: Lista de assuntos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  assuntos:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        codigo:
+                          type: string
+                        nome:
+                          type: string
+                        pai:
+                          type: string
+
+  /api/certificados:
+    get:
+      summary: Listar certificados digitais
+      description: Lista certificados digitais instalados no sistema
+      operationId: listarCertificados
+      responses:
+        '200':
+          description: Lista de certificados
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  certificados:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        thumbprint:
+                          type: string
+                        subject:
+                          type: string
+                        issuer:
+                          type: string
+                        validFrom:
+                          type: string
+                          format: date
+                        validTo:
+                          type: string
+                          format: date
+
+  /api/certificado/info:
+    get:
+      summary: Informações do certificado atual
+      description: Retorna informações sobre o certificado digital configurado
+      operationId: infoCertificado
+      responses:
+        '200':
+          description: Informações do certificado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  configured:
+                    type: boolean
+                  subject:
+                    type: string
+                  issuer:
+                    type: string
+                  validFrom:
+                    type: string
+                    format: date
+                  validTo:
+                    type: string
+                    format: date
+                  isValid:
+                    type: boolean
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: |
+        Chave de API opcional para autenticação.
+        Configure no .env: API_KEY=sua-chave-secreta
+
+security:
+  - ApiKeyAuth: []
+  - {}  # Permite requisições sem autenticação (padrão)

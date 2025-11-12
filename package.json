@@ -14,7 +14,9 @@
     "install:global": "npm install -g .",
     "uninstall:global": "npm uninstall -g pje-mcp-server",
     "config:claude": "node build/scripts/setup-claude.js",
-    "config:vscode": "node build/scripts/setup-vscode.js"
+    "config:vscode": "node build/scripts/setup-vscode.js",
+    "config:cursor": "node build/scripts/setup-cursor.js",
+    "config:cline": "node build/scripts/setup-cline.js"
   },
   "keywords": [
     "pje",

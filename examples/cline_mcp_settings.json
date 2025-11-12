@@ -1,0 +1,27 @@
+{
+  "mcpServers": {
+    "pje": {
+      "command": "node",
+      "args": ["/caminho/para/pje-mcp-server/build/index.js"],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  },
+  "_comments": {
+    "info": "Configuração para Cline (anteriormente Claude Dev) no VSCode/Cursor",
+    "windows_location": "%APPDATA%\\Code\\User\\globalStorage\\saoudrizwan.claude-dev\\settings\\cline_mcp_settings.json",
+    "mac_location": "~/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json",
+    "linux_location": "~/.config/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json",
+    "instalacao_global": "npm install -g pje-mcp-server",
+    "configuracao_automatica": "npm run config:cline",
+    "nota": "A extensão Cline deve estar instalada no VSCode ou Cursor",
+    "extensao_vscode": "code --install-extension saoudrizwan.claude-dev",
+    "como_configurar_manualmente": [
+      "1. Abra o VSCode/Cursor",
+      "2. Abra a extensão Cline",
+      "3. Clique em 'MCP Servers'",
+      "4. Adicione este arquivo de configuração"
+    ]
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "api": {
+    "mode": "http-rest",
+    "host": "localhost",
+    "port": 3000,
+    "baseUrl": "http://localhost:3000",
+    "endpoints": {
+      "status": "/api/status",
+      "configure": "/api/configure",
+      "processos": "/api/processos",
+      "processo": "/api/processo/:numero",
+      "orgaos": "/api/orgaos-julgadores",
+      "classes": "/api/classes",
+      "assuntos": "/api/assuntos",
+      "certificados": "/api/certificados",
+      "certificado_info": "/api/certificado/info"
+    },
+    "auth": {
+      "type": "none",
+      "note": "Por padrão sem autenticação. Configure API_KEY no .env para segurança"
+    }
+  },
+  "_comments": {
+    "info": "API HTTP REST para integração com Gemini, Perplexity, ChatGPT e outras ferramentas",
+    "uso": "Inicie o servidor web: npm run start:web",
+    "porta_padrao": 3000,
+    "configuracao": "Configure porta no .env: WEB_SERVER_PORT=3000",
+    "seguranca": "Em produção, configure API_KEY e CORS no .env",
+    "ferramentas_suportadas": [
+      "Google Gemini (via custom tools/function calling)",
+      "Perplexity (via integração HTTP)",
+      "ChatGPT/GPT (via custom actions/plugins)",
+      "Qualquer ferramenta que suporte HTTP REST"
+    ],
+    "exemplo_uso_gemini": {
+      "description": "Configure como Function Calling no Gemini",
+      "url": "http://localhost:3000/api/processos",
+      "method": "GET",
+      "parameters": {
+        "cpf": "string",
+        "dataInicio": "string (YYYY-MM-DD)",
+        "dataFim": "string (YYYY-MM-DD)"
+      }
+    },
+    "exemplo_uso_chatgpt": {
+      "description": "Configure como Custom GPT Action",
+      "openapi_spec": "Veja docs/OPENAPI_SPEC.yaml",
+      "authentication": "API Key (opcional)"
+    }
+  }
+}

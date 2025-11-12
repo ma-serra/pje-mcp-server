@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "pje": {
+      "command": "node",
+      "args": ["/caminho/para/pje-mcp-server/build/index.js"],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  },
+  "_comments": {
+    "info": "Configuração para Cursor IDE com suporte MCP",
+    "windows_location": "%APPDATA%\\Cursor\\User\\globalStorage\\saoudrizwan.claude-dev\\settings\\cline_mcp_settings.json",
+    "mac_location": "~/Library/Application Support/Cursor/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json",
+    "linux_location": "~/.config/Cursor/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json",
+    "instalacao_global": "npm install -g pje-mcp-server",
+    "configuracao_automatica": "npm run config:cursor",
+    "nota_windows": "Substitua pelo caminho: C:\\Users\\SEU_USUARIO\\AppData\\Roaming\\npm\\node_modules\\pje-mcp-server\\build\\index.js",
+    "nota_mac": "Substitua pelo caminho: /usr/local/lib/node_modules/pje-mcp-server/build/index.js",
+    "nota_linux": "Substitua pelo caminho: ~/.npm-global/lib/node_modules/pje-mcp-server/build/index.js",
+    "requisito": "Extensão Cline (Claude Dev) instalada no Cursor"
+  }
+}

@@ -10,7 +10,23 @@ Servidor MCP (Model Context Protocol) para integração com o sistema PJE (Proce
 - 🏛️ **Dados Judiciais** - Órgãos julgadores, classes e assuntos
 - 🔍 **Filtros Avançados** - Busca com múltiplos critérios
 - 🌐 **Multi-tribunal** - Funciona com qualquer tribunal PJE
-- 🤖 **Claude Desktop** - Integração nativa com IA
+- 🤖 **Integração Universal** - Funciona em TODAS as principais ferramentas de IA
+
+## 🛠️ Ferramentas Suportadas
+
+### Suporte MCP Nativo (Recomendado)
+- ✅ **Claude Desktop** - Integração oficial
+- ✅ **VSCode** - Via extensão MCP
+- ✅ **Cursor IDE** - Via extensão Cline
+- ✅ **Cline (Claude Dev)** - Extensão VSCode/Cursor
+
+### Via API HTTP REST
+- ✅ **ChatGPT** - Custom GPT Actions
+- ✅ **Google Gemini** - Function Calling
+- ✅ **Perplexity** - Via webhook/integração
+- ✅ **Qualquer ferramenta** - API REST padrão
+
+📖 **[Guia Completo de Integração](docs/INTEGRACAO_FERRAMENTAS.md)**
 
 ## 📦 Instalação
 
@@ -71,11 +87,14 @@ PJE_CERTIFICATE_THUMBPRINT=abc123...
 #### ⚡ Configuração Automática (Pós-instalação global)
 
 ```bash
-# Configurar Claude Desktop automaticamente
-npm run config:claude
+# Ferramentas MCP
+npm run config:claude   # Claude Desktop
+npm run config:vscode   # VSCode
+npm run config:cursor   # Cursor IDE
+npm run config:cline    # Cline (VSCode/Cursor)
 
-# Configurar VSCode automaticamente
-npm run config:vscode
+# API HTTP para ChatGPT, Gemini, etc
+npm run start:web       # Inicia servidor HTTP em localhost:3000
 ```
 
 #### 🔧 Configuração Manual
