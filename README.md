@@ -12,7 +12,32 @@ Servidor MCP (Model Context Protocol) para integração com o sistema PJE (Proce
 - 🌐 **Multi-tribunal** - Funciona com qualquer tribunal PJE
 - 🤖 **Claude Desktop** - Integração nativa com IA
 
-## 📦 Instalação Rápida
+## 📦 Instalação
+
+### 🌍 Instalação Global (Recomendado)
+
+Use o servidor em **todas as ferramentas** (Claude Desktop, VSCode, etc):
+
+**Windows:**
+```cmd
+git clone https://github.com/seu-usuario/pje-mcp-server.git
+cd pje-mcp-server
+install.bat
+```
+
+**Linux/Mac:**
+```bash
+git clone https://github.com/seu-usuario/pje-mcp-server.git
+cd pje-mcp-server
+chmod +x install.sh
+./install.sh
+```
+
+📖 **[Guia Completo de Instalação Global](docs/INSTALACAO_GLOBAL.md)**
+
+### 📍 Instalação Local
+
+Use apenas no diretório atual:
 
 ```bash
 git clone https://github.com/seu-usuario/pje-mcp-server.git
@@ -41,35 +66,76 @@ PJE_CERTIFICATE_PFX_PASSWORD=senha123
 PJE_CERTIFICATE_THUMBPRINT=abc123...
 ```
 
-### 2. Claude Desktop (Windows)
+### 2. Configuração de Ferramentas
 
-Adicione ao arquivo `%APPDATA%\Claude\claude_desktop_config.json`:
+#### ⚡ Configuração Automática (Pós-instalação global)
+
+```bash
+# Configurar Claude Desktop automaticamente
+npm run config:claude
+
+# Configurar VSCode automaticamente
+npm run config:vscode
+```
+
+#### 🔧 Configuração Manual
+
+**Claude Desktop (Windows):**
+
+Arquivo: `%APPDATA%\Claude\claude_desktop_config.json`
 
 ```json
 {
   "mcpServers": {
     "pje": {
       "command": "node",
-      "args": ["C:\\caminho\\para\\pje-mcp-server\\build\\index.js"]
+      "args": ["C:\\Users\\SEU_USUARIO\\AppData\\Roaming\\npm\\node_modules\\pje-mcp-server\\build\\index.js"]
     }
   }
 }
 ```
 
-### 3. Claude Desktop (Mac/Linux)
+**Claude Desktop (Mac):**
 
-Adicione ao arquivo `~/.config/claude/claude_desktop_config.json`:
+Arquivo: `~/Library/Application Support/Claude/claude_desktop_config.json`
 
 ```json
 {
   "mcpServers": {
     "pje": {
       "command": "node",
-      "args": ["/caminho/para/pje-mcp-server/build/index.js"]
+      "args": ["/usr/local/lib/node_modules/pje-mcp-server/build/index.js"]
     }
   }
 }
 ```
+
+**Claude Desktop (Linux):**
+
+Arquivo: `~/.config/claude/claude_desktop_config.json`
+
+```json
+{
+  "mcpServers": {
+    "pje": {
+      "command": "node",
+      "args": ["/home/SEU_USUARIO/.npm-global/lib/node_modules/pje-mcp-server/build/index.js"]
+    }
+  }
+}
+```
+
+**VSCode:**
+
+```bash
+# Instale a extensão MCP
+code --install-extension anthropics.mcp
+
+# Configure automaticamente
+npm run config:vscode
+```
+
+📖 **Veja exemplos completos em:** `examples/`
 
 ## 🎯 Uso com Claude
 
@@ -150,10 +216,19 @@ pje-mcp-server/
 ### Scripts Disponíveis
 
 ```bash
+# Compilação e execução
 npm run build    # Compila o TypeScript
 npm run start    # Inicia o servidor
 npm run dev      # Compila e inicia
 npm run clean    # Limpa arquivos compilados
+
+# Instalação global
+npm run install:global    # Instala globalmente
+npm run uninstall:global  # Desinstala globalmente
+
+# Configuração automática
+npm run config:claude     # Configura Claude Desktop
+npm run config:vscode     # Configura VSCode
 ```
 
 ## 🐛 Solução de Problemas

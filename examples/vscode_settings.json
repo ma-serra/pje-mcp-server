@@ -1,0 +1,21 @@
+{
+  "mcp.servers": {
+    "pje": {
+      "command": "node",
+      "args": ["/caminho/para/pje-mcp-server/build/index.js"],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  },
+  "_comments": {
+    "info": "Configuração para VSCode com extensão MCP",
+    "windows_location": "%APPDATA%\\Code\\User\\settings.json",
+    "mac_location": "~/Library/Application Support/Code/User/settings.json",
+    "linux_location": "~/.config/Code/User/settings.json",
+    "instalacao_global": "npm install -g pje-mcp-server",
+    "configuracao_automatica": "npm run config:vscode",
+    "extensao_mcp": "code --install-extension anthropics.mcp",
+    "nota": "Substitua '/caminho/para/pje-mcp-server' pelo caminho correto"
+  }
+}

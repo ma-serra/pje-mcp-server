@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "pje": {
+      "command": "node",
+      "args": ["/home/seu-usuario/.npm-global/lib/node_modules/pje-mcp-server/build/index.js"],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  },
+  "_comments": {
+    "info": "Configuração para Claude Desktop no Linux",
+    "location": "~/.config/claude/claude_desktop_config.json",
+    "instalacao_global": "npm install -g pje-mcp-server",
+    "configuracao_automatica": "npm run config:claude",
+    "nota": "Substitua '/home/seu-usuario/.npm-global' pelo caminho correto do npm global"
+  }
+}

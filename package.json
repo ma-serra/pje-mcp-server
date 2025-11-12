@@ -10,7 +10,11 @@
     "dev": "tsc && node build/index.js",
     "test": "node build/test-server.js",
     "clean": "rm -rf build",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "install:global": "npm install -g .",
+    "uninstall:global": "npm uninstall -g pje-mcp-server",
+    "config:claude": "node build/scripts/setup-claude.js",
+    "config:vscode": "node build/scripts/setup-vscode.js"
   },
   "keywords": [
     "pje",

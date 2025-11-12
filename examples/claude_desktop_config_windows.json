@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "pje": {
+      "command": "node",
+      "args": ["C:\\Users\\seu-usuario\\AppData\\Roaming\\npm\\node_modules\\pje-mcp-server\\build\\index.js"],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  },
+  "_comments": {
+    "info": "Configuração para Claude Desktop no Windows",
+    "location": "%APPDATA%\\Claude\\claude_desktop_config.json",
+    "instalacao_global": "npm install -g pje-mcp-server",
+    "configuracao_automatica": "npm run config:claude",
+    "nota": "Substitua 'seu-usuario' pelo seu nome de usuário do Windows"
+  }
+}
